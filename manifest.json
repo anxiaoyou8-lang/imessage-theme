@@ -1,0 +1,11 @@
+{
+  "display_name": "iMessage Theme",
+  "loading_order": 2,
+  "requires": [],
+  "optional": [],
+  "js": "index.js",
+  "css": "style.css",
+  "author": "小幽",
+  "version": "1.0.0",
+  "homePage": "https://github.com/anxiaoyou8-lang/imessage-theme"
+}
