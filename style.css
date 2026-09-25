@@ -1,0 +1,27 @@
+#xiaoyou-preset-switch {
+  position: fixed;
+  z-index: 4702;
+  top: 16px;
+  right: calc(var(--xiaoyou-edge, 16px) + 48px);
+  height: 40px;
+  margin: 0;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--xiaoyou-frost-edge, rgba(74, 52, 36, 0.16));
+  background: var(--xiaoyou-frost, rgba(255, 252, 247, 0.84));
+  color: var(--xiaoyou-text, #3c2b22);
+  font-family: "Huiwen-mincho", "Songti SC", "STSong", serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+body:has(.drawer-content.openDrawer) #xiaoyou-preset-switch {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+body #send_form { overflow: visible !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
