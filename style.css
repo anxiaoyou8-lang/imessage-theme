@@ -25,3 +25,5 @@ body:has(.drawer-content.openDrawer) #xiaoyou-preset-switch {
 }
 
 body #send_form { overflow: visible !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+
+#xiaoyou-plus-tabs { display: none; }
