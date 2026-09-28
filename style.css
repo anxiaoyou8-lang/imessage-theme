@@ -33,16 +33,19 @@ body #send_form { overflow: visible !important; backdrop-filter: none !important
 
 #xiaoyou-plus-tabs { display: none; }
 
+#xiaoyou-drawer-close { display: none; }
+
 #xiaoyou-tune-button {
   display: none;
   position: fixed;
   z-index: 4680;
-  top: 458px;
+  top: 456px;
   right: var(--xiaoyou-edge, 16px);
   width: 188px;
   height: 44px;
   padding: 0 16px;
   border: 1px solid var(--xiaoyou-frost-edge);
+  border-top: 0;
   border-radius: 0 0 16px 16px;
   background: var(--xiaoyou-frost);
   color: var(--xiaoyou-text);
