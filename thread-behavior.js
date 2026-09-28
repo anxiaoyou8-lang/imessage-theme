@@ -51,10 +51,54 @@ function plusMenuOpen() {
   return window.getComputedStyle(options).display !== "none"
 }
 
+function ensureMobilePlusTabs() {
+  if (!document.body) return null
+  let tabs = document.getElementById("xiaoyou-plus-tabs")
+  if (tabs) return tabs
+  tabs = document.createElement("div")
+  tabs.id = "xiaoyou-plus-tabs"
+  tabs.setAttribute("role", "group")
+  tabs.setAttribute("aria-label", "加号菜单分类")
+  for (const [id, label] of [["options", "操作"], ["extensions", "扩展"], ["quick", "快捷回复"]]) {
+    const button = document.createElement("button")
+    button.type = "button"
+    button.dataset.xiaoyouTab = id
+    button.textContent = label
+    button.addEventListener("mousedown", (event) => event.stopPropagation())
+    button.addEventListener("click", (event) => {
+      event.preventDefault()
+      event.stopPropagation()
+      document.body.dataset.xiaoyouPlusTab = id
+      syncPlusPanels()
+    })
+    tabs.appendChild(button)
+  }
+  document.body.appendChild(tabs)
+  return tabs
+}
+
 function syncPlusPanels() {
   const menu = document.getElementById("extensionsMenu")
   const open = plusMenuOpen()
+  const wasOpen = document.body.classList.contains("xiaoyou-plus-open")
   document.body.classList.toggle("xiaoyou-plus-open", open)
+  const tabs = ensureMobilePlusTabs()
+  if (open && !wasOpen) document.body.dataset.xiaoyouPlusTab = "options"
+  if (tabs) {
+    const available = {
+      options: !!document.getElementById("options"),
+      extensions: !!menu,
+      quick: !!document.getElementById("qr--bar"),
+    }
+    if (!available[document.body.dataset.xiaoyouPlusTab]) {
+      document.body.dataset.xiaoyouPlusTab = "options"
+    }
+    tabs.querySelectorAll("button").forEach((button) => {
+      const id = button.dataset.xiaoyouTab
+      button.hidden = !available[id]
+      button.setAttribute("aria-pressed", String(id === document.body.dataset.xiaoyouPlusTab))
+    })
+  }
   if (!menu) return
   const next = open ? "flex" : "none"
   if (menu.style.display !== next) menu.style.display = next
