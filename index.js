@@ -3,6 +3,7 @@ const PRESETS = {"paper":"/* @theme-studio-tokens:start */\n@import url(\"https:
 
 const STORAGE_KEY = "xiaoyou-tavern-preset"
 const STYLE_ID = "xiaoyou-tavern-theme"
+const MOBILE_STYLE_ID = "xiaoyou-tavern-mobile"
 const LABELS = { paper: "米黄", night: "暖黑" }
 
 function readPreset() {
@@ -27,6 +28,14 @@ function applyPreset(id) {
   }
   style.textContent = css
   head.appendChild(style)
+  let mobileStyle = document.getElementById(MOBILE_STYLE_ID)
+  if (!mobileStyle) {
+    mobileStyle = document.createElement("link")
+    mobileStyle.id = MOBILE_STYLE_ID
+    mobileStyle.rel = "stylesheet"
+    mobileStyle.href = new URL("./mobile.css", import.meta.url).href
+  }
+  head.appendChild(mobileStyle)
   const button = document.getElementById("xiaoyou-preset-switch")
   if (button) {
     const next = id === "paper" ? "night" : "paper"
