@@ -208,14 +208,71 @@ function ensureChrome() {
     closeButton.type = "button"
     closeButton.id = "xiaoyou-drawer-close"
     closeButton.setAttribute("aria-label", "关闭设置面板")
-    closeButton.textContent = "×"
+    closeButton.innerHTML = '<span class="xiaoyou-drawer-handle" aria-hidden="true"></span><span class="xiaoyou-drawer-close-mark" aria-hidden="true">×</span>'
+    const openDrawer = () => document.querySelector("#top-settings-holder > .drawer > .drawer-content.openDrawer")
+    const closeDrawer = () => {
+      openDrawer()?.closest(".drawer")?.querySelector(":scope > .drawer-toggle")?.click()
+    }
     closeButton.addEventListener("click", (event) => {
       event.preventDefault()
       event.stopPropagation()
-      const drawer = document.querySelector("#top-settings-holder .drawer-content.openDrawer")
-      drawer?.closest(".drawer")?.querySelector(":scope > .drawer-toggle")?.click()
+      closeDrawer()
     })
     document.body.appendChild(closeButton)
+
+    const beginSwipe = (target, x, y) => {
+      if (!matchMedia("(max-width: 700px), (max-width: 960px) and (max-height: 500px)").matches) return null
+      const drawer = openDrawer()
+      if (!drawer || !(target instanceof Element)) return null
+      const onCloseStrip = closeButton.contains(target)
+      if (!onCloseStrip && !drawer.contains(target)) return null
+      if (!onCloseStrip) {
+        if (target.closest("a, button, input, textarea, select, [contenteditable], [role=slider], [draggable=true]")) return null
+        for (let node = target; node && node !== drawer; node = node.parentElement) {
+          const overflow = getComputedStyle(node).overflowX
+          if ((overflow === "auto" || overflow === "scroll") && node.scrollWidth > node.clientWidth + 4) return null
+        }
+      }
+      return { x, y, drawer }
+    }
+    const finishSwipe = (start, x, y) => {
+      const dx = x - start.x
+      const dy = y - start.y
+      if (Math.abs(dx) >= 96 && Math.abs(dx) > Math.abs(dy) * 1.5 && start.drawer.classList.contains("openDrawer")) closeDrawer()
+    }
+
+    let pointerSwipe = null
+    document.addEventListener("pointerdown", (event) => {
+      pointerSwipe = null
+      if (event.pointerType === "touch" || !event.isPrimary || event.button !== 0) return
+      const start = beginSwipe(event.target, event.clientX, event.clientY)
+      if (start) pointerSwipe = { ...start, pointerId: event.pointerId }
+    }, { passive: true })
+    document.addEventListener("pointerup", (event) => {
+      if (!pointerSwipe || event.pointerId !== pointerSwipe.pointerId) return
+      const start = pointerSwipe
+      pointerSwipe = null
+      finishSwipe(start, event.clientX, event.clientY)
+    }, { passive: true })
+    document.addEventListener("pointercancel", () => { pointerSwipe = null }, { passive: true })
+
+    let touchSwipe = null
+    document.addEventListener("touchstart", (event) => {
+      touchSwipe = null
+      if (event.touches.length !== 1) return
+      const touch = event.changedTouches[0]
+      const start = beginSwipe(event.target, touch.clientX, touch.clientY)
+      if (start) touchSwipe = { ...start, identifier: touch.identifier }
+    }, { passive: true })
+    document.addEventListener("touchend", (event) => {
+      if (!touchSwipe) return
+      const touch = Array.from(event.changedTouches).find((item) => item.identifier === touchSwipe.identifier)
+      if (!touch) return
+      const start = touchSwipe
+      touchSwipe = null
+      finishSwipe(start, touch.clientX, touch.clientY)
+    }, { passive: true })
+    document.addEventListener("touchcancel", () => { touchSwipe = null }, { passive: true })
   }
   const holder = document.getElementById("top-settings-holder")
   if (holder && !document.getElementById("xiaoyou-nav-toggle")) {
