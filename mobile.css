@@ -167,6 +167,21 @@
     touch-action: pan-y;
   }
 
+  body:has(#top-settings-holder .drawer-content.openDrawer) #top-settings-holder {
+    pointer-events: auto;
+  }
+
+  /* TauriTavern keeps native shortcuts in this area. Let taps reach them. */
+  body.xiaoyou-tauri:has(#top-settings-holder .drawer-content.openDrawer) #xiaoyou-drawer-strip {
+    background: transparent;
+    border-bottom: 0;
+    pointer-events: none;
+  }
+
+  body.xiaoyou-tauri:has(#top-settings-holder .drawer-content.openDrawer) #xiaoyou-drawer-close {
+    pointer-events: auto;
+  }
+
   body:has(#top-settings-holder .drawer-content.openDrawer) #xiaoyou-drawer-close {
     position: absolute;
     top: calc(4px + env(safe-area-inset-top));
@@ -309,6 +324,12 @@
     pointer-events: auto;
     border-radius: 16px;
     overscroll-behavior: contain;
+  }
+
+  body:not(.xiaoyou-nav-open) #top-settings-holder:not(:has(.drawer-content.openDrawer)) > .drawer > .drawer-toggle {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 
   body.xiaoyou-nav-open:not(:has(.drawer-content.openDrawer)) #top-settings-holder > .drawer {
