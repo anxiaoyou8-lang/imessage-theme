@@ -39,6 +39,77 @@
     opacity: 0.9;
   }
 
+  #chat .mes .mes_buttons,
+  #chat .mes[is_user="true"] .mes_buttons {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 4px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+  }
+
+  #chat .mes .mes_buttons > .cet-msg-bookmark-btn {
+    box-sizing: border-box;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 36px;
+    width: 36px !important;
+    height: 36px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #chat .mes .mes_buttons > .mes_button,
+  #chat .mes[is_user="true"] .mes_buttons > .mes_button,
+  #chat .mes .mes_buttons > .extraMesButtons .mes_button {
+    box-sizing: border-box;
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 36px !important;
+    text-align: center !important;
+  }
+
+  #chat .mes .mes_buttons > .extraMesButtons:not(.visible),
+  #chat .mes[is_user="true"] .mes_buttons > .extraMesButtons:not(.visible) {
+    box-sizing: border-box;
+    flex: 0 0 36px;
+    width: 36px !important;
+    height: 36px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  #chat .mes .mes_buttons > .extraMesButtons.visible {
+    position: absolute !important;
+    inset: auto 0 calc(100% + 4px) auto !important;
+    z-index: 5;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-end !important;
+    gap: 4px !important;
+    box-sizing: border-box;
+    width: min(360px, calc(100vw - 24px)) !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: min(45dvh, 220px);
+    overflow-y: auto;
+    padding: 6px !important;
+    border: 1px solid var(--xiaoyou-frost-edge) !important;
+    border-radius: 16px !important;
+    background: var(--xiaoyou-frost) !important;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
   #xiaoyou-thread-header {
     top: env(safe-area-inset-top);
     height: 86px;
@@ -76,6 +147,29 @@
     top: calc(8px + env(safe-area-inset-top));
     right: calc(var(--xiaoyou-edge) + 52px);
     height: 44px;
+  }
+
+  body:has(#top-settings-holder .drawer-content.openDrawer) #xiaoyou-drawer-close {
+    position: fixed;
+    z-index: 5500;
+    top: calc(8px + env(safe-area-inset-top));
+    right: max(10px, env(safe-area-inset-right));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--xiaoyou-frost-edge);
+    border-radius: 50%;
+    background: var(--xiaoyou-frost);
+    color: var(--xiaoyou-text);
+    font: inherit;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
   #form_sheld {
@@ -224,6 +318,7 @@
     flex: 0 0 44px;
     width: 100% !important;
     height: 44px !important;
+    border-top: 0;
   }
 
   #xiaoyou-tune-overlay {
