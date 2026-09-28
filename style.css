@@ -33,6 +33,7 @@ body #send_form { overflow: visible !important; backdrop-filter: none !important
 
 #xiaoyou-plus-tabs { display: none; }
 
+#xiaoyou-drawer-strip { display: none; }
 #xiaoyou-drawer-close { display: none; }
 
 #xiaoyou-tune-button {
