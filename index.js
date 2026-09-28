@@ -204,11 +204,13 @@ function ensureChrome() {
   ensureSwitch()
   ensureTuningPanel()
   if (!document.getElementById("xiaoyou-drawer-close")) {
+    const closeStrip = document.createElement("div")
+    closeStrip.id = "xiaoyou-drawer-strip"
     const closeButton = document.createElement("button")
     closeButton.type = "button"
     closeButton.id = "xiaoyou-drawer-close"
     closeButton.setAttribute("aria-label", "关闭设置面板")
-    closeButton.innerHTML = '<span class="xiaoyou-drawer-handle" aria-hidden="true"></span><span class="xiaoyou-drawer-close-mark" aria-hidden="true">×</span>'
+    closeButton.textContent = "×"
     const openDrawer = () => document.querySelector("#top-settings-holder > .drawer > .drawer-content.openDrawer")
     const closeDrawer = () => {
       openDrawer()?.closest(".drawer")?.querySelector(":scope > .drawer-toggle")?.click()
@@ -218,13 +220,22 @@ function ensureChrome() {
       event.stopPropagation()
       closeDrawer()
     })
-    document.body.appendChild(closeButton)
+    closeStrip.addEventListener("click", (event) => {
+      event.preventDefault()
+      event.stopPropagation()
+    })
+    // SillyTavern closes drawers on <html> mousedown/touchstart outside the drawer.
+    // The strip is outside the drawer in the DOM, so keep those events here.
+    closeStrip.addEventListener("mousedown", (event) => event.stopPropagation())
+    closeStrip.addEventListener("touchstart", (event) => event.stopPropagation(), { passive: true })
+    closeStrip.appendChild(closeButton)
+    document.body.appendChild(closeStrip)
 
     const beginSwipe = (target, x, y) => {
       if (!matchMedia("(max-width: 700px), (max-width: 960px) and (max-height: 500px)").matches) return null
       const drawer = openDrawer()
       if (!drawer || !(target instanceof Element)) return null
-      const onCloseStrip = closeButton.contains(target)
+      const onCloseStrip = closeStrip.contains(target)
       if (!onCloseStrip && !drawer.contains(target)) return null
       if (!onCloseStrip) {
         if (target.closest("a, button, input, textarea, select, [contenteditable], [role=slider], [draggable=true]")) return null
@@ -263,7 +274,7 @@ function ensureChrome() {
       const touch = event.changedTouches[0]
       const start = beginSwipe(event.target, touch.clientX, touch.clientY)
       if (start) touchSwipe = { ...start, identifier: touch.identifier }
-    }, { passive: true })
+    }, { passive: true, capture: true })
     document.addEventListener("touchend", (event) => {
       if (!touchSwipe) return
       const touch = Array.from(event.changedTouches).find((item) => item.identifier === touchSwipe.identifier)
