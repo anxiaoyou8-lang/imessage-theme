@@ -1,3 +1,8 @@
+html {
+  height: 100dvh !important;
+  overflow: clip !important;
+}
+
 #xiaoyou-preset-switch {
   position: fixed;
   z-index: 4702;
@@ -12,7 +17,7 @@
   color: var(--xiaoyou-text, #3c2b22);
   font-family: "Huiwen-mincho", "Songti SC", "STSong", serif;
   font-weight: normal;
-  font-size: 14px;
+  font-size: var(--xiaoyou-ui-font-size, 14px);
   line-height: 1;
   cursor: pointer;
   backdrop-filter: blur(18px);
@@ -27,3 +32,126 @@ body:has(.drawer-content.openDrawer) #xiaoyou-preset-switch {
 body #send_form { overflow: visible !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
 #xiaoyou-plus-tabs { display: none; }
+
+#xiaoyou-tune-button {
+  display: none;
+  position: fixed;
+  z-index: 4680;
+  top: 458px;
+  right: var(--xiaoyou-edge, 16px);
+  width: 188px;
+  height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--xiaoyou-frost-edge);
+  border-radius: 0 0 16px 16px;
+  background: var(--xiaoyou-frost);
+  color: var(--xiaoyou-text);
+  font-family: inherit;
+  font-size: var(--xiaoyou-ui-font-size, 14px);
+  text-align: left;
+  cursor: pointer;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  pointer-events: auto;
+}
+
+body.xiaoyou-nav-open:not(:has(.drawer-content.openDrawer)) #xiaoyou-tune-button {
+  display: block;
+}
+
+#xiaoyou-tune-overlay[hidden] { display: none !important; }
+
+#xiaoyou-tune-overlay {
+  position: fixed;
+  z-index: 6000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 16px;
+  background: rgba(24, 18, 16, 0.35);
+}
+
+#xiaoyou-tune-dialog {
+  width: min(420px, 100%);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid var(--xiaoyou-frost-edge);
+  border-radius: 24px;
+  background: var(--xiaoyou-solid);
+  color: var(--xiaoyou-text);
+  box-shadow: 0 18px 60px rgba(24, 18, 16, 0.2);
+  font-family: "Huiwen-mincho", "Songti SC", "STSong", serif;
+  font-size: 15px;
+}
+
+#xiaoyou-tune-dialog header,
+#xiaoyou-tune-dialog footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+#xiaoyou-tune-dialog h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: normal;
+}
+
+#xiaoyou-tune-close {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--xiaoyou-frost-edge);
+  border-radius: 50%;
+  background: var(--xiaoyou-page);
+  color: var(--xiaoyou-text);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.xiaoyou-tune-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px 12px;
+  margin-top: 20px;
+}
+
+.xiaoyou-tune-row output {
+  color: var(--xiaoyou-text);
+  opacity: 0.68;
+  font-variant-numeric: tabular-nums;
+}
+
+.xiaoyou-tune-row input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-height: 32px;
+  margin: 0;
+  accent-color: var(--xiaoyou-clay);
+}
+
+#xiaoyou-tune-dialog footer {
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+#xiaoyou-tune-dialog footer span { opacity: 0.6; font-size: 12px; }
+
+#xiaoyou-tune-reset {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--xiaoyou-frost-edge);
+  border-radius: 999px;
+  background: var(--xiaoyou-page);
+  color: var(--xiaoyou-text);
+  font: inherit;
+  cursor: pointer;
+}
