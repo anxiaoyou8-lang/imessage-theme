@@ -150,7 +150,7 @@
     height: 44px;
   }
 
-  body:has(#top-settings-holder .drawer-content.openDrawer) #xiaoyou-drawer-close {
+  body:has(#top-settings-holder .drawer-content.openDrawer) #xiaoyou-drawer-strip {
     position: fixed;
     z-index: 5500;
     top: 0;
@@ -164,24 +164,10 @@
     border-radius: 0;
     background: var(--xiaoyou-solid);
     color: var(--xiaoyou-text);
-    font: inherit;
-    cursor: pointer;
     touch-action: pan-y;
   }
 
-  #xiaoyou-drawer-close .xiaoyou-drawer-handle {
-    position: absolute;
-    bottom: 13px;
-    left: 50%;
-    width: 38px;
-    height: 5px;
-    transform: translateX(-50%);
-    border-radius: 999px;
-    background: var(--xiaoyou-text);
-    opacity: 0.35;
-  }
-
-  #xiaoyou-drawer-close .xiaoyou-drawer-close-mark {
+  body:has(#top-settings-holder .drawer-content.openDrawer) #xiaoyou-drawer-close {
     position: absolute;
     top: calc(4px + env(safe-area-inset-top));
     right: max(10px, env(safe-area-inset-right));
@@ -190,12 +176,16 @@
     justify-content: center;
     width: 44px;
     height: 44px;
+    padding: 0;
     border: 1px solid var(--xiaoyou-frost-edge);
     border-radius: 50%;
     background: var(--xiaoyou-frost);
+    color: var(--xiaoyou-text);
+    font: inherit;
     font-size: 28px;
     line-height: 1;
     box-sizing: border-box;
+    cursor: pointer;
   }
 
   #form_sheld {
