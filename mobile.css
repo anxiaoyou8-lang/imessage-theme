@@ -1,0 +1,242 @@
+/* Phone layout. Keep the original SillyTavern nodes in place. */
+@media (max-width: 700px), (max-width: 960px) and (max-height: 500px) {
+  html {
+    height: 100dvh !important;
+    overflow: clip !important;
+  }
+
+  :root {
+    --xiaoyou-edge: max(10px, env(safe-area-inset-right));
+  }
+
+  #sheld {
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+
+  #chat {
+    box-sizing: border-box;
+    padding: calc(92px + env(safe-area-inset-top)) 2px
+      calc(92px + env(safe-area-inset-bottom)) !important;
+  }
+
+  #chat .mes {
+    padding: 4px 10px 6px !important;
+  }
+
+  #chat .mes .mes_block {
+    max-width: min(86%, 520px) !important;
+    min-width: 0;
+  }
+
+  #chat .mes .mes_text {
+    overflow-wrap: anywhere !important;
+    font-size: 16px !important;
+  }
+
+  #chat .mes .mes_buttons,
+  #chat .mes .mes_edit_buttons {
+    opacity: 0.9;
+  }
+
+  #xiaoyou-thread-header {
+    top: env(safe-area-inset-top);
+    height: 86px;
+  }
+
+  #xiaoyou-thread-identity {
+    margin-top: 6px;
+  }
+
+  #xiaoyou-thread-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  #xiaoyou-thread-name {
+    max-width: min(45vw, 210px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #xiaoyou-thread-back,
+  #xiaoyou-nav-toggle,
+  #top-settings-holder::after {
+    top: calc(8px + env(safe-area-inset-top));
+    width: 44px;
+    height: 44px;
+  }
+
+  #xiaoyou-thread-back {
+    left: max(8px, env(safe-area-inset-left));
+  }
+
+  #xiaoyou-preset-switch {
+    top: calc(8px + env(safe-area-inset-top));
+    right: calc(var(--xiaoyou-edge) + 52px);
+    height: 44px;
+  }
+
+  #form_sheld {
+    left: max(8px, env(safe-area-inset-left));
+    right: max(8px, env(safe-area-inset-right));
+    bottom: calc(8px + env(safe-area-inset-bottom));
+  }
+
+  #options_button,
+  #send_form #send_but {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+  }
+
+  #nonQRFormItems {
+    min-height: 56px;
+  }
+
+  #send_textarea {
+    min-width: 0;
+    font-size: 16px !important;
+  }
+
+  /* The root element is transformed by SillyTavern and has zero layout height.
+     Use a viewport top anchor instead of bottom: for fixed popups. */
+  body.xiaoyou-plus-open #options,
+  body.xiaoyou-plus-open #extensionsMenu,
+  body.xiaoyou-plus-open #qr--bar {
+    position: fixed !important;
+    inset: auto !important;
+    top: calc(100dvh - 132px - env(safe-area-inset-bottom)) !important;
+    bottom: auto !important;
+    left: max(10px, env(safe-area-inset-left)) !important;
+    right: auto !important;
+    width: calc(100vw - 20px - env(safe-area-inset-left) - env(safe-area-inset-right)) !important;
+    max-width: none !important;
+    max-height: max(96px, min(60dvh, calc(100dvh - 216px))) !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+    transform: translateY(-100%) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  body.xiaoyou-plus-open[data-xiaoyou-plus-tab="options"] #options,
+  body.xiaoyou-plus-open[data-xiaoyou-plus-tab="extensions"] #extensionsMenu,
+  body.xiaoyou-plus-open[data-xiaoyou-plus-tab="quick"] #qr--bar {
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  #xiaoyou-plus-tabs {
+    display: none;
+    position: fixed;
+    z-index: 4501;
+    top: calc(100dvh - 124px - env(safe-area-inset-bottom));
+    left: max(10px, env(safe-area-inset-left));
+    width: calc(100vw - 20px - env(safe-area-inset-left) - env(safe-area-inset-right));
+    height: 44px;
+    padding: 3px;
+    gap: 3px;
+    box-sizing: border-box;
+    border: 1px solid var(--xiaoyou-frost-edge);
+    border-radius: 16px;
+    background: var(--xiaoyou-frost);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  body.xiaoyou-plus-open #xiaoyou-plus-tabs {
+    display: flex;
+  }
+
+  #xiaoyou-plus-tabs button {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 36px;
+    padding: 0 6px;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--xiaoyou-text);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  #xiaoyou-plus-tabs button[aria-pressed="true"] {
+    background: var(--xiaoyou-solid);
+  }
+
+  #xiaoyou-plus-tabs button[hidden] {
+    display: none;
+  }
+
+  body.xiaoyou-plus-open #options a,
+  body.xiaoyou-plus-open #extensionsMenu .extension_container > div,
+  body.xiaoyou-plus-open #extensionsMenu > div:not(.extension_container),
+  body.xiaoyou-plus-open #qr--bar .qr--button {
+    min-height: 44px;
+  }
+
+  /* The desktop navigation uses nine fixed rows; allow the list to scroll
+     when the phone is short or held sideways. */
+  body.xiaoyou-nav-open:not(:has(.drawer-content.openDrawer)) #top-settings-holder {
+    top: calc(60px + env(safe-area-inset-top));
+    left: auto;
+    right: var(--xiaoyou-edge);
+    width: min(188px, calc(100vw - 20px)) !important;
+    height: min(396px, calc(100dvh - 76px - env(safe-area-inset-top) - env(safe-area-inset-bottom))) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    pointer-events: auto;
+    border-radius: 16px;
+    overscroll-behavior: contain;
+  }
+
+  body.xiaoyou-nav-open:not(:has(.drawer-content.openDrawer)) #top-settings-holder > .drawer {
+    flex: 0 0 44px;
+    width: 100% !important;
+  }
+
+  body.xiaoyou-nav-open:not(:has(.drawer-content.openDrawer)) #top-settings-holder > .drawer > .drawer-toggle {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    height: 44px !important;
+  }
+
+  .drawer-content.openDrawer {
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    padding-bottom: env(safe-area-inset-bottom);
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 360px) {
+  #chat .welcomeHeader {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  #chat .recentChatsTitle {
+    flex-basis: 100%;
+    white-space: nowrap;
+  }
+
+  #chat .welcomeShortcuts {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
