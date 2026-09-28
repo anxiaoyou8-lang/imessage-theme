@@ -51,6 +51,10 @@ function plusMenuOpen() {
   return window.getComputedStyle(options).display !== "none"
 }
 
+function isTauriTavern() {
+  return Boolean(window.__TAURITAVERN__ || window.__TAURITAVERN_MAIN_READY__)
+}
+
 function ensureMobilePlusTabs() {
   if (!document.body) return null
   let tabs = document.getElementById("xiaoyou-plus-tabs")
@@ -79,6 +83,15 @@ function ensureMobilePlusTabs() {
 
 function syncPlusPanels() {
   const menu = document.getElementById("extensionsMenu")
+  if (isTauriTavern()) {
+    document.body.classList.remove("xiaoyou-plus-managed", "xiaoyou-plus-open")
+    if (menu?.dataset.xiaoyouDisplayManaged === "1") {
+      menu.style.removeProperty("display")
+      delete menu.dataset.xiaoyouDisplayManaged
+    }
+    return
+  }
+  document.body.classList.add("xiaoyou-plus-managed")
   const open = plusMenuOpen()
   const wasOpen = document.body.classList.contains("xiaoyou-plus-open")
   document.body.classList.toggle("xiaoyou-plus-open", open)
@@ -102,10 +115,15 @@ function syncPlusPanels() {
   if (!menu) return
   const next = open ? "flex" : "none"
   if (menu.style.display !== next) menu.style.display = next
+  menu.dataset.xiaoyouDisplayManaged = "1"
 }
 
 function bindPlusPanels() {
-  if (document.documentElement.dataset.xiaoyouPlus === "1") return
+  if (document.documentElement.dataset.xiaoyouPlus === "1") {
+    syncPlusPanels()
+    return
+  }
+  if (isTauriTavern()) return
   document.documentElement.dataset.xiaoyouPlus = "1"
 
   const armMenu = (menu) => {
