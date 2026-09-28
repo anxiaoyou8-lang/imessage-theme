@@ -36,6 +36,14 @@ body #send_form { overflow: visible !important; backdrop-filter: none !important
 #xiaoyou-drawer-strip { display: none; }
 #xiaoyou-drawer-close { display: none; }
 
+@media (hover: none) {
+  body:not(.xiaoyou-nav-open) #top-settings-holder:not(:has(.drawer-content.openDrawer)) > .drawer > .drawer-toggle {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
 #xiaoyou-tune-button {
   display: none;
   position: fixed;
