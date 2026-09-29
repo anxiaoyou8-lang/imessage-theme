@@ -31,6 +31,10 @@ body:has(#top-settings-holder > .drawer > .drawer-content.openDrawer) #xiaoyou-p
 
 body #send_form { overflow: visible !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
+/* Keep SillyTavern's native greeting and response swipe controls accessible. */
+#chat .mes .swipe_left { left: -4px; }
+#chat .mes :is(.swipe_left, .swipe_right, .swipes-counter) { color: var(--xiaoyou-text); }
+
 #xiaoyou-plus-tabs { display: none; }
 
 #xiaoyou-drawer-strip { display: none; }
