@@ -24,11 +24,6 @@ html {
   -webkit-backdrop-filter: blur(18px);
 }
 
-body:has(#top-settings-holder > .drawer > .drawer-content.openDrawer) #xiaoyou-preset-switch {
-  visibility: hidden;
-  pointer-events: none;
-}
-
 body #send_form { overflow: visible !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
 /* Keep SillyTavern's native greeting and response swipe controls accessible. */
@@ -71,7 +66,7 @@ body #send_form { overflow: visible !important; backdrop-filter: none !important
   pointer-events: auto;
 }
 
-body.xiaoyou-nav-open:not(:has(.drawer-content.openDrawer)) #xiaoyou-tune-button {
+body.xiaoyou-nav-open #xiaoyou-tune-button {
   display: block;
 }
 
