@@ -24,7 +24,7 @@ html {
   -webkit-backdrop-filter: blur(18px);
 }
 
-body:has(.drawer-content.openDrawer) #xiaoyou-preset-switch {
+body:has(#top-settings-holder > .drawer > .drawer-content.openDrawer) #xiaoyou-preset-switch {
   visibility: hidden;
   pointer-events: none;
 }
