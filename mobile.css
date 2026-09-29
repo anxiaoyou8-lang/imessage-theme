@@ -150,6 +150,20 @@
     height: 44px;
   }
 
+  body:has(#top-settings-holder > .drawer > .drawer-content.openDrawer) #xiaoyou-preset-switch,
+  body:has(#top-settings-holder > .drawer > .drawer-content.openDrawer) #xiaoyou-nav-toggle,
+  body:has(#top-settings-holder > .drawer > .drawer-content.openDrawer) #top-settings-holder::after {
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  body:has(#top-settings-holder > .drawer > .drawer-content.openDrawer) #xiaoyou-tune-button,
+  body:has(#top-settings-holder > .drawer > .drawer-content.openDrawer) #top-settings-holder > .drawer > .drawer-toggle {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
   body:has(#top-settings-holder .drawer-content.openDrawer) #xiaoyou-drawer-strip {
     position: fixed;
     z-index: 5500;
